@@ -1,0 +1,25 @@
+<!-- ussually you do not define variables on the view -->
+<!-- use contreller instance variables!!!! -->
+<% number_of_restaurants = 10 %>
+<h1>Restaurants (<%= @restaurants.count %>)</h1>
+<p>Best Restaurants on town</p>
+<p>Now it is <%= Time.now %></p>
+
+<form action="/restaurants" method="get">
+  <input type="text" name="food_type" value="<%= @category %>" placeholder="What kind of food?">
+  <input type="submit">
+</form>
+
+<% @restaurants.each_with_index do |restaurant, index| %>
+  <div><%= link_to restaurant[:name], restaurant_path(index) %> - <%= restaurant[:category] %></div>
+<% end %>
+
+
+<h2>Create new Restaurant</h2>
+
+<form action="/restaurants" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <input type="text" name="name">
+  <input type="text" name="category">
+  <input type="submit">
+</form>
